@@ -1,10 +1,13 @@
+import { useState } from "react";
 import Login from "./pages/login";
 import "./App.css";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <div className="App">
-      <Login />
+      {loggedIn ? null : <Login setLoggedIn={setLoggedIn} />}
     </div>
   );
 }

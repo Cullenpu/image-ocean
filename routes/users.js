@@ -4,6 +4,15 @@ const router = express.Router();
 const { User } = require("../models/User");
 const { isMongoError } = require("./utils");
 
+// Check if a user is already logged in to this session
+router.get("/check-session", (req, res) => {
+  if (req.session.user) {
+    res.send();
+  } else {
+    res.status(401).send();
+  }
+});
+
 // Create a new user
 router.post("/", async (req, res) => {
   const user = new User({
@@ -33,7 +42,7 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findByUsernamePassword(username, password);
     req.session.user = user._id;
-    res.send({ user: user._id });
+    res.send();
   } catch (err) {
     res.status(400).send();
   }

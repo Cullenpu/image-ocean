@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Form, FormGroup, Input } from "reactstrap";
 import axios from "axios";
 
@@ -7,16 +7,41 @@ import "./loginStyles.css";
 import ENV from "../config";
 const API_HOST = ENV.api_host;
 
-const Login = () => {
+const Login = ({ setLoggedIn }) => {
   const [infoText, setInfoText] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    checkSession(setLoggedIn);
+  }, []);
+
+  const checkSession = (setLoggedIn) => {
+    const url = `${API_HOST}/users/check-session`;
+    axios
+      .get(url)
+      .then((res) => {
+        if (res.status === 200 && res.data.id) {
+          console.log("User logged in!");
+          setLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log("User not logged in");
+        setLoggedIn(false);
+      });
+  };
+
   const handleLogin = () => {
     const loginInfo = { username: username, password: password };
-    axios.post(`${API_HOST}/users/login`, loginInfo).catch((err) => {
-      setInfoText("Invalid credentials");
-    });
+    axios
+      .post(`${API_HOST}/users/login`, loginInfo)
+      .then((res) => {
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        setInfoText("Invalid credentials");
+      });
   };
 
   const handleSignup = () => {
