@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ImageSchema = new mongoose.Schema({
-  user: Schema.Types.ObjectId, // The user who uploaded this image
+  user: mongoose.Schema.ObjectId, // The user who uploaded this image
   desc: String,
   private: Boolean,
   img: {

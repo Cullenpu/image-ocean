@@ -5,7 +5,7 @@ const { User } = require("../models/User");
 const { isMongoError } = require("./utils");
 
 // Create a new user
-app.post("/", async (req, res) => {
+router.post("/", async (req, res) => {
   const user = new User({
     username: req.body.username,
     password: req.body.password,
@@ -26,13 +26,13 @@ app.post("/", async (req, res) => {
 });
 
 // User login
-app.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
   try {
     const user = await User.findByUsernamePassword(username, password);
-    req.session.user = _id;
+    req.session.user = user._id;
     res.send({ user: user._id });
   } catch (err) {
     res.status(400).send();
@@ -40,7 +40,7 @@ app.post("/login", async (req, res) => {
 });
 
 // User logout
-app.get("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   // Remove the session
   req.session.destroy((err) => {
     if (err) {

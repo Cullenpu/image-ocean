@@ -4,7 +4,7 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 
-const { Image } = require("./models/image");
+const { Image } = require("../models/image");
 const { isMongoError } = require("./utils");
 
 const storage = multer.diskStorage({
@@ -16,10 +16,10 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ dest: "uploads/" });
 
 // Get all public images
-app.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const images = await Image.find({ private: false });
     res.send(images);
@@ -28,14 +28,15 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.post("/", upload.single("image"), async (req, res) => {
+router.post("/", upload.single("image"), async (req, res) => {
+  console.log(req.body, req.file);
   const image = {
     user: req.session.user,
     desc: req.body.desc,
     private: req.body.private,
     img: {
       data: fs.readFileSync(
-        path.join(__dirname + "/uploads/" + req.file.filename)
+        path.join(__dirname, "..", "uploads", req.file.filename)
       ),
       contentType: "image/png",
     },
@@ -49,7 +50,7 @@ app.post("/", upload.single("image"), async (req, res) => {
   });
 });
 
-app.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
     if (req.session.user === id) {
