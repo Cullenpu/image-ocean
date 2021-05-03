@@ -1,37 +1,53 @@
-import { Row, Col } from "reactstrap";
+import React, { useState, useEffect, useCallback } from "react";
+import Gallery from "react-photo-gallery";
+import Carousel, { Modal, ModalGateway } from "react-images";
 
 const ImageGrid = ({ images }) => {
-  // 4 images per row
-  const imgPerRow = 4;
-  const numRows = Math.ceil(images.length / imgPerRow);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [viewerIsOpen, setViewerIsOpen] = useState(false);
+  const [photos, setPhotos] = useState([]);
+
+  useEffect(() => {
+    setPhotos(
+      images.map((image) => {
+        return {
+          width: image.width,
+          height: image.height,
+          caption: image.caption,
+          src: `data:${image.img.contentType};base64,${Buffer.from(
+            image.img.data
+          ).toString("base64")}`,
+        };
+      })
+    );
+  }, [images]);
+
+  const openLightbox = useCallback((event, { photo, index }) => {
+    setCurrentImage(index);
+    setViewerIsOpen(true);
+  }, []);
+
+  const closeLightbox = () => {
+    setCurrentImage(0);
+    setViewerIsOpen(false);
+  };
 
   return (
     <div>
-      {Array(numRows)
-        .fill()
-        .map((_, rowIndex) => {
-          // Use map to create a new row
-          return (
-            <Row key={rowIndex}>
-              {images
-                .slice(rowIndex * imgPerRow, (rowIndex + 1) * imgPerRow)
-                .map((image, colIndex) => {
-                  return (
-                    <Col>
-                      <img
-                        key={colIndex}
-                        src={`data:${
-                          image.img.contentType
-                        };base64,${Buffer.from(image.img.data).toString(
-                          "base64"
-                        )}`}
-                      />
-                    </Col>
-                  );
-                })}
-            </Row>
-          );
-        })}
+      <Gallery photos={photos} onClick={openLightbox} />
+      <ModalGateway>
+        {viewerIsOpen ? (
+          <Modal onClose={closeLightbox}>
+            <Carousel
+              currentIndex={currentImage}
+              views={photos.map((photo) => ({
+                ...photo,
+                srcset: photo.srcSet,
+              }))}
+            />
+          </Modal>
+        ) : null}
+      </ModalGateway>
     </div>
   );
 };

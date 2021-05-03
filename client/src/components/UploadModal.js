@@ -24,14 +24,31 @@ const UploadModal = ({ modal, toggle, setRepositoryImages }) => {
 
   const onFileUpload = () => {
     if (file) {
-      const formData = new FormData();
+      const regex = new RegExp(".*(.jpg|.jpeg|.png|.gif|.svg)$");
+      if (regex.test(file.name)) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e) => {
+          const img = new Image();
+          img.src = e.target.result;
+          img.onload = () => {
+            // Get image height and width
+            const width = img.naturalWidth;
+            const height = img.naturalHeight;
 
-      // Update the formData object
-      formData.append("image", file, file.name);
-      formData.append("caption", caption);
-      formData.append("private", priv);
-      uploadImage(formData, setRepositoryImages);
-      toggle(false);
+            const formData = new FormData();
+            formData.append("image", file, file.name);
+            formData.append("caption", caption);
+            formData.append("private", priv);
+            formData.append("width", width);
+            formData.append("height", height);
+            uploadImage(formData, setRepositoryImages);
+            toggle(false);
+          };
+        };
+      } else {
+        setInfoText("Invalid image file");
+      }
     } else {
       setInfoText("No file selected");
     }

@@ -34,6 +34,8 @@ router.post("/", upload.single("image"), async (req, res) => {
     user: req.session.user,
     caption: req.body.caption,
     private: req.body.private,
+    width: req.body.width,
+    height: req.body.height,
     img: {
       data: fs.readFileSync(
         path.join(__dirname, "..", "uploads", req.file.filename)

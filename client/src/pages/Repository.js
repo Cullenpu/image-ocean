@@ -1,3 +1,4 @@
+import React from "react";
 import ImageGrid from "../components/ImageGrid";
 
 const Repository = ({ images }) => {

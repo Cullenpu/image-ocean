@@ -4,6 +4,8 @@ const ImageSchema = new mongoose.Schema({
   user: mongoose.Schema.ObjectId, // The user who uploaded this image
   caption: String,
   private: Boolean,
+  width: Number,
+  height: Number,
   img: {
     data: Buffer,
     contentType: String,
