@@ -28,8 +28,8 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Upload a single image
 router.post("/", upload.single("image"), async (req, res) => {
-  console.log(req.body, req.file);
   const image = {
     user: req.session.user,
     desc: req.body.desc,
@@ -38,7 +38,7 @@ router.post("/", upload.single("image"), async (req, res) => {
       data: fs.readFileSync(
         path.join(__dirname, "..", "uploads", req.file.filename)
       ),
-      contentType: "image/png",
+      contentType: req.file.mimetype,
     },
   };
   Image.create(image, (err, item) => {
@@ -50,6 +50,7 @@ router.post("/", upload.single("image"), async (req, res) => {
   });
 });
 
+// Get all images of specified user
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {

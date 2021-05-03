@@ -1,60 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Row, Col, Button, Form, FormGroup, Input } from "reactstrap";
-import axios from "axios";
+import { checkSession, handleLogin, handleSignup } from "../utils";
 
 import "./loginStyles.css";
 
-import ENV from "../config";
-const API_HOST = ENV.api_host;
-
-const Login = ({ setLoggedIn }) => {
+const Login = ({ setID }) => {
   const [infoText, setInfoText] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    checkSession(setLoggedIn);
+    checkSession(setID);
   }, []);
-
-  const checkSession = (setLoggedIn) => {
-    const url = `${API_HOST}/users/check-session`;
-    axios
-      .get(url)
-      .then((res) => {
-        if (res.status === 200 && res.data.id) {
-          console.log("User logged in!");
-          setLoggedIn(true);
-        }
-      })
-      .catch((err) => {
-        console.log("User not logged in");
-        setLoggedIn(false);
-      });
-  };
-
-  const handleLogin = () => {
-    const loginInfo = { username: username, password: password };
-    axios
-      .post(`${API_HOST}/users/login`, loginInfo)
-      .then((res) => {
-        setLoggedIn(true);
-      })
-      .catch((err) => {
-        setInfoText("Invalid credentials");
-      });
-  };
-
-  const handleSignup = () => {
-    const signupInfo = { username: username, password: password };
-    axios
-      .post(`${API_HOST}/users`, signupInfo)
-      .then((res) => {
-        setInfoText("User created!");
-      })
-      .catch((err) => {
-        setInfoText("Use different username.");
-      });
-  };
 
   return (
     <div className="login-background">
@@ -86,7 +43,9 @@ const Login = ({ setLoggedIn }) => {
                 outline
                 color="primary"
                 className="button"
-                onClick={handleLogin}
+                onClick={() =>
+                  handleLogin(username, password, setID, setInfoText)
+                }
               >
                 Login
               </Button>
@@ -94,7 +53,7 @@ const Login = ({ setLoggedIn }) => {
                 outline
                 color="secondary"
                 className="button"
-                onClick={handleSignup}
+                onClick={() => handleSignup(username, password, setInfoText)}
               >
                 Signup
               </Button>

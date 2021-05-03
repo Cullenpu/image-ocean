@@ -42,7 +42,7 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findByUsernamePassword(username, password);
     req.session.user = user._id;
-    res.send();
+    res.send({ id: user._id });
   } catch (err) {
     res.status(400).send();
   }
