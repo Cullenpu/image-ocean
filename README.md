@@ -8,17 +8,24 @@ mkdir mongo-data
 mkdir uploads
 ```
 
-2. Start the database.
+2. Install requried packages in the backend and frontend.
+```bash
+npm install
+cd client
+npm install
+```
+
+3. Start the database.
 ```bash
 mongod --dbpath mongo-data
 ```
 
-3. Start the backend server.
+4. Start the backend server.
 ```bash
 npm start
 ```
 
-4. Start the frontend.
+5. Start the frontend.
 ```bash
 cd client
 npm start

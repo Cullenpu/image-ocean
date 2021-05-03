@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
 router.post("/", upload.single("image"), async (req, res) => {
   const image = {
     user: req.session.user,
-    desc: req.body.desc,
+    caption: req.body.caption,
     private: req.body.private,
     img: {
       data: fs.readFileSync(

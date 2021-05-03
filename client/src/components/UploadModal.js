@@ -14,7 +14,7 @@ import { uploadImage } from "../utils";
 
 const UploadModal = ({ modal, toggle, setRepositoryImages }) => {
   const [file, setFile] = useState(null);
-  const [desc, setDesc] = useState("");
+  const [caption, setCaption] = useState("");
   const [priv, setPrivate] = useState(false);
   const [infoText, setInfoText] = useState(null);
 
@@ -28,7 +28,7 @@ const UploadModal = ({ modal, toggle, setRepositoryImages }) => {
 
       // Update the formData object
       formData.append("image", file, file.name);
-      formData.append("desc", desc);
+      formData.append("caption", caption);
       formData.append("private", priv);
       uploadImage(formData, setRepositoryImages);
       toggle(false);
@@ -43,13 +43,13 @@ const UploadModal = ({ modal, toggle, setRepositoryImages }) => {
       <ModalBody>
         <Form encType="multipart/form-data">
           <FormGroup>
-            <Label for="desc">Image Description</Label>
+            <Label for="caption">Image Caption</Label>
             <Input
-              id="desc"
-              name="desc"
-              onChange={(e) => setDesc(e.target.value)}
+              id="caption"
+              name="caption"
+              onChange={(e) => setCaption(e.target.value)}
               rows="2"
-              placeholder="Description"
+              placeholder="Caption"
             />
           </FormGroup>
           <FormGroup>
