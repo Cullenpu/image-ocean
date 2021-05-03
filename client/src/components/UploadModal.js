@@ -25,7 +25,9 @@ const UploadModal = ({ modal, toggle, setRepositoryImages }) => {
   const onFileUpload = () => {
     if (file) {
       const regex = new RegExp(".*(.jpg|.jpeg|.png|.gif|.svg)$");
+      // Validate image file
       if (regex.test(file.name)) {
+        // Create reader object to read image and get original height and width for use in the image grid
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = (e) => {
@@ -36,6 +38,7 @@ const UploadModal = ({ modal, toggle, setRepositoryImages }) => {
             const width = img.naturalWidth;
             const height = img.naturalHeight;
 
+            // FormData object used in the request
             const formData = new FormData();
             formData.append("image", file, file.name);
             formData.append("caption", caption);

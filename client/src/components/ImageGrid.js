@@ -9,7 +9,8 @@ const ImageGrid = ({ images }) => {
 
   useEffect(() => {
     setPhotos(
-      images.map((image) => {
+      // Reverse order of images array so that they are shown in chronological order
+      images.reverse().map((image) => {
         return {
           width: image.width,
           height: image.height,
