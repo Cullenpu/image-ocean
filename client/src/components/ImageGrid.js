@@ -2,7 +2,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 
-const ImageGrid = ({ images }) => {
+import "./imageGridStyles.css";
+
+const ImageGrid = ({ images, header }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [photos, setPhotos] = useState([]);
@@ -12,6 +14,7 @@ const ImageGrid = ({ images }) => {
       // Reverse order of images array so that they are shown in chronological order
       images.reverse().map((image) => {
         return {
+          key: image._id,
           width: image.width,
           height: image.height,
           caption: image.caption,
@@ -35,6 +38,7 @@ const ImageGrid = ({ images }) => {
 
   return (
     <div>
+      <p className="gallery-header">{header}</p>
       <Gallery photos={photos} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (

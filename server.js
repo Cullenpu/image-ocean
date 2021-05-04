@@ -16,13 +16,14 @@ app.use(bodyParser.json());
 
 const env = process.env.NODE_ENV;
 if (env !== "production") {
-  app.use(cors());
+  // Enable CORS if in development, for React local development server to connect to the web server
+  app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 }
 
 // Create a session and session cookie
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "SESSION_SECRET", // make a SESSION_SECRET environment variable when deploying (for example, on heroku)
+    secret: process.env.SESSION_SECRET || "eZ3BeAQz3hs92R82ycky", // Make a SESSION_SECRET environment variable when deploying (for example, on heroku)
     resave: false,
     saveUninitialized: false,
     cookie: {

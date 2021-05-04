@@ -34,6 +34,10 @@
   margin: 20px 0;
 }
 
+.login-text {
+  font-size: 2em;
+}
+
 .button {
   margin: 0 5px;
 }

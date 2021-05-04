@@ -20,7 +20,7 @@ const Login = ({ setID }) => {
           <Col>TODO: Insert logo</Col>
           <Col>
             <Form className="login-form">
-              <h2>User Login</h2>
+              <p className="login-text">Login, or Sign Up</p>
               <FormGroup>
                 <Input
                   // type="username"

@@ -1,30 +1,38 @@
 import { useState, useEffect } from "react";
 import Login from "./pages/login";
 import AppNav from "./components/AppNav";
-import Repository from "./pages/Repository";
+import ImageGrid from "./components/ImageGrid";
 import "./App.css";
 
-import { getRepositoryImages } from "./utils";
+import { getGalleryImages, getPersonalImages } from "./utils";
 
 function App() {
   const [id, setID] = useState(null);
-  const [repository, setRepository] = useState(true);
-  const [repositoryImages, setRepositoryImages] = useState([]);
+  const [gallery, setGallery] = useState(true);
+  const [galleryImages, setGalleryImages] = useState([]);
   const [personalImages, setPersonalImages] = useState([]);
 
   useEffect(() => {
     // Set the images array on load
-    getRepositoryImages(setRepositoryImages);
-  }, []);
+    getGalleryImages(setGalleryImages);
+    getPersonalImages(id, setPersonalImages);
+  }, [id]);
 
   return (
     <div className="App">
       {id ? (
         <AppNav
-          setRepository={setRepository}
-          setRepositoryImages={setRepositoryImages}
+          setGallery={setGallery}
+          id={id}
+          setID={setID}
+          setGalleryImages={setGalleryImages}
+          setPersonalImages={setPersonalImages}
         >
-          {repository ? <Repository images={repositoryImages} /> : null}
+          {gallery ? (
+            <ImageGrid images={galleryImages} header="All Images" />
+          ) : (
+            <ImageGrid images={personalImages} header="My Images" />
+          )}
         </AppNav>
       ) : (
         <Login setID={setID} />

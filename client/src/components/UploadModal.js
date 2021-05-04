@@ -12,7 +12,13 @@ import {
 } from "reactstrap";
 import { uploadImage } from "../utils";
 
-const UploadModal = ({ modal, toggle, setRepositoryImages }) => {
+const UploadModal = ({
+  modal,
+  toggle,
+  id,
+  setGalleryImages,
+  setPersonalImages,
+}) => {
   const [file, setFile] = useState(null);
   const [caption, setCaption] = useState("");
   const [priv, setPrivate] = useState(false);
@@ -45,7 +51,7 @@ const UploadModal = ({ modal, toggle, setRepositoryImages }) => {
             formData.append("private", priv);
             formData.append("width", width);
             formData.append("height", height);
-            uploadImage(formData, setRepositoryImages);
+            uploadImage(id, formData, setGalleryImages, setPersonalImages);
             toggle(false);
           };
         };
@@ -84,7 +90,10 @@ const UploadModal = ({ modal, toggle, setRepositoryImages }) => {
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Input type="checkbox" onChange={() => setPrivate(!priv)} />
+              <Input
+                type="checkbox"
+                onChange={(e) => setPrivate(e.target.checked)}
+              />
               Private
             </Label>
           </FormGroup>

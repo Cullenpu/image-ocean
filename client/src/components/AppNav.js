@@ -7,8 +7,10 @@ import {
   Nav,
   NavItem,
   NavLink,
+  NavbarText,
 } from "reactstrap";
 import UploadModal from "./UploadModal";
+import { handleLogout } from "../utils";
 
 const AppNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +25,7 @@ const AppNav = (props) => {
         <NavbarBrand
           style={{ cursor: "pointer" }}
           onClick={() => {
-            props.setRepository(true);
+            props.setGallery(true);
           }}
         >
           LOGO
@@ -35,20 +37,20 @@ const AppNav = (props) => {
               <NavLink
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  props.setRepository(true);
+                  props.setGallery(true);
                 }}
               >
-                Repository
+                Gallery
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  props.setRepository(false);
+                  props.setGallery(false);
                 }}
               >
-                My Images
+                Personal
               </NavLink>
             </NavItem>
             <NavItem>
@@ -57,14 +59,22 @@ const AppNav = (props) => {
                 <UploadModal
                   modal={modal}
                   toggle={toggleModal}
-                  setRepositoryImages={props.setRepositoryImages}
+                  id={props.id}
+                  setGalleryImages={props.setGalleryImages}
+                  setPersonalImages={props.setPersonalImages}
                 />
               </NavLink>
             </NavItem>
           </Nav>
+          <NavbarText
+            style={{ cursor: "pointer", float: "right" }}
+            onClick={() => handleLogout(props.setID, props.setPersonalImages)}
+          >
+            Log out
+          </NavbarText>
         </Collapse>
       </Navbar>
-      {props.children}
+      <div style={{ margin: "0 40px" }}>{props.children}</div>
     </div>
   );
 };

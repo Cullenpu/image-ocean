@@ -54,23 +54,22 @@ router.post("/", upload.single("image"), async (req, res) => {
 
 // Get all images of specified user
 router.get("/:id", async (req, res) => {
-  const id = req.params.id;
   try {
+    const id = req.params.id;
     if (req.session.user === id) {
       // User is fetching their own photos
       // Get all of user's own images including private ones
-      const images = await Image.find({ _id: id });
+      const images = await Image.find({ user: id });
       res.send(images);
     } else {
       // Get only the public images of this user
-      const images = await Image.find({ _id: id, private: false });
+      const images = await Image.find({ user: id, private: false });
       res.send(images);
     }
   } catch (err) {
     if (isMongoError(err)) {
       res.status(500).send("Internal server error");
     } else {
-      console.log(err);
       res.status(404).send("User not found");
     }
   }
