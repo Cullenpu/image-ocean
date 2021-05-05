@@ -2,8 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const path = require("path");
 
 const { mongoose } = require("./db/mongoose");
+const MongoStore = require("connect-mongo");
 const users = require("./routes/users");
 const images = require("./routes/images");
 
@@ -42,6 +44,9 @@ app.use(
 
 app.use("/users", users);
 app.use("/images", images);
+
+// Serve the build
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
