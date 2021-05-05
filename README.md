@@ -1,31 +1,40 @@
-# Image Repository
+![Image Ocean](client/src/res/logo_small.svg)
 
-## Usage
+Image Ocean is an image repository featuring support for public and private photos for users. Users can view their own photos, both public and private, or all public photos in the repository in a beautiful image gallery.
 
-1. Create the necessary folders for the backend and database.
+## Installation
+
 ```bash
-mkdir mongo-data
-mkdir uploads
-```
+# Clone into image-ocean directory
+git clone https://github.com/Cullenpu/image-ocean.git
 
-2. Install requried packages in the backend and frontend.
-```bash
+# Install backend dependencies
+cd image-ocean
 npm install
+
+# Install frontend dependencies
 cd client
 npm install
 ```
 
-3. Start the database.
+## Usage
+
+1. Start the database.
+
 ```bash
+mkdir mongo-data
+mkdir uploads
 mongod --dbpath mongo-data
 ```
 
-4. Start the backend server.
+2. Start the backend server.
+
 ```bash
 npm start
 ```
 
-5. Start the frontend.
+3. Start the frontend.
+
 ```bash
 cd client
 npm start

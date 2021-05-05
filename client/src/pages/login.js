@@ -3,6 +3,7 @@ import { Row, Col, Button, Form, FormGroup, Input } from "reactstrap";
 import { checkSession, handleLogin, handleSignup } from "../utils";
 
 import "./loginStyles.css";
+import logo from "../res/logo_big.svg";
 
 const Login = ({ setID }) => {
   const [infoText, setInfoText] = useState(null);
@@ -17,7 +18,9 @@ const Login = ({ setID }) => {
     <div className="login-background">
       <div className="login-container">
         <Row className="login-row">
-          <Col>TODO: Insert logo</Col>
+          <Col>
+            <img src={logo} alt="ImageOcean" className="logo" />
+          </Col>
           <Col>
             <Form className="login-form">
               <p className="login-text">Login, or Sign Up</p>

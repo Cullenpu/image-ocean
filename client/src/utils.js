@@ -42,9 +42,7 @@ export const handleLogin = (username, password, setID, setInfoText) => {
   axios
     .post(`${API_HOST}/users/login`, loginInfo)
     .then((res) => setID(res.data.id))
-    .catch((err) => {
-      setInfoText("Invalid credentials");
-    });
+    .catch((err) => setInfoText("Invalid credentials"));
 };
 
 /**

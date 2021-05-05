@@ -12,6 +12,9 @@ import {
 import UploadModal from "./UploadModal";
 import { handleLogout } from "../utils";
 
+import "./appNavStyles.css";
+import logo from "../res/logo_small.svg";
+
 const AppNav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
@@ -28,7 +31,7 @@ const AppNav = (props) => {
             props.setGallery(true);
           }}
         >
-          LOGO
+          <img src={logo} alt="ImageOcean" className="logo" />
         </NavbarBrand>
         <NavbarToggler onClick={toggleOpen} />
         <Collapse isOpen={isOpen} navbar>
@@ -68,6 +71,7 @@ const AppNav = (props) => {
           </Nav>
           <NavbarText
             style={{ cursor: "pointer", float: "right" }}
+            className="logout"
             onClick={() => handleLogout(props.setID, props.setPersonalImages)}
           >
             Log out
