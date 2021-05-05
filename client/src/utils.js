@@ -104,10 +104,13 @@ export const getPersonalImages = (id, setPersonalImages) => {
 /**
  * Uploads an image in the given form data and updates the images.
  *
+ * @param {string} id - Current user's ID
  * @param {FormData} formData - Form data contaning the image and corresponding
  * information used for the request.
  * @param {function} setGalleryImages - Function used to set the gallery images
  * array in the app state.
+ * @param {function} setPersonalImages - Function used to set the user's own
+ * images array in the app state.
  */
 export const uploadImage = (
   id,

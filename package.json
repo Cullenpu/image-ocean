@@ -1,7 +1,7 @@
 {
-  "name": "image-share",
+  "name": "image-ocean",
   "version": "1.0.0",
-  "description": "Discover images from photographers around the world.",
+  "description": "An online image repository showcasing images from photographers around the world.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,7 +9,7 @@
     "test": "npm test"
   },
   "author": "Cullen Pu",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",

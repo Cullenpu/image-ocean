@@ -58,7 +58,7 @@ const Login = ({ setID }) => {
                 className="button"
                 onClick={() => handleSignup(username, password, setInfoText)}
               >
-                Signup
+                Sign Up
               </Button>
               <h6>{infoText}</h6>
             </Form>
