@@ -41,3 +41,7 @@ npm start
 cd client
 npm start
 ```
+
+## Test
+
+Run `npm test` to run the test suite testing the backend API calls.

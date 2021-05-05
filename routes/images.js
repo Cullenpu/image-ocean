@@ -46,6 +46,7 @@ router.post("/", upload.single("image"), async (req, res) => {
   Image.create(image, (err, item) => {
     if (err) {
       console.log(err);
+      res.status(500).send("Internal server error");
     } else {
       res.status(200).send();
     }

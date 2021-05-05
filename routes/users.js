@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { User } = require("../models/User");
+const { User } = require("../models/user");
 const { isMongoError } = require("./utils");
 
 // Check if a user is already logged in to this session
@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
   try {
     // Save user
     const newUser = await user.save();
-    res.send(newUser);
+    res.status(201).send();
   } catch (err) {
     if (isMongoError(err)) {
       res.status(500).send("Internal server error");
