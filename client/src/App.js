@@ -4,7 +4,7 @@ import AppNav from "./components/AppNav";
 import ImageGrid from "./components/ImageGrid";
 import "./App.css";
 
-import { getGalleryImages, getPersonalImages } from "./utils";
+import { checkSession, getGalleryImages, getPersonalImages } from "./utils";
 
 function App() {
   const [id, setID] = useState(null);
@@ -14,6 +14,7 @@ function App() {
 
   useEffect(() => {
     // Set the images array on load
+    checkSession(setID);
     getGalleryImages(setGalleryImages);
     getPersonalImages(id, setPersonalImages);
   }, [id]);

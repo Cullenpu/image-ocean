@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Row, Col, Button, Form, FormGroup, Input } from "reactstrap";
-import { checkSession, handleLogin, handleSignup } from "../utils";
+import { handleLogin, handleSignup } from "../utils";
 
 import "./loginStyles.css";
 import logo from "../res/logo_big.svg";
@@ -9,10 +9,6 @@ const Login = ({ setID }) => {
   const [infoText, setInfoText] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    checkSession(setID);
-  }, []);
 
   return (
     <div className="login-background">
